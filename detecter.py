@@ -9,9 +9,9 @@ import  requests
 
 
 results={}
-cam=cv2.VideoCapture('/home/john/road_track/VID_20240314_143858.mp4')
+cam=cv2.VideoCapture('stream/video path...')
 bus_tracker=Sort()
-number_plate_model=YOLO('/home/john/road_track/new model/last.pt')
+number_plate_model=YOLO('model path....')
 bus_model=YOLO('yolov8x.pt')
 max_score=0.0
 max_score_number_plate=''
