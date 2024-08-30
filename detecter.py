@@ -1,11 +1,10 @@
 from ultralytics import YOLO
-import os
 import cv2
 from sort.sort import *
-from util import get_bus,read_number_plate,write_csv
+from util import get_bus,read_number_plate
 import  requests
-import json
-print(os.getcwd())
+
+
 
 
 
@@ -46,9 +45,8 @@ while _:
                 cv2.rectangle(img, (x1, y1 - text_height - 5), (x1 + text_width, y1), (0, 255, 0), cv2.FILLED)
                 cv2.putText(img, object_name, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
                 
-
                 print(result.names[box.cls[0].item()])
-        print('bus detected')
+      
         track_ids=bus_tracker.update(np.asarray(detection_))
         
         results_number_plate=number_plate_model(img)
@@ -64,12 +62,13 @@ while _:
                                 _,number_plate_crop_img_thresh=cv2.threshold(number_plate_crop_img_gray,64,255,cv2.THRESH_BINARY_INV)
                                 number_plate_text,number_plate_text_score=read_number_plate(number_plate_crop_img_thresh)
                                 
-                                if number_plate_text is not None:
-                                    results[frame_count][bus_id]={'bus':{'bbox':[bus_x1,bus_y1,bus_x2,bus_y2]},
-                                                                'number plate':{'bbox':[x1, y1, x2, y2],
-                                                                'text':number_plate_text,
-                                                                'bbox_score':score,
-                                                                'number_plate_score':number_plate_text_score}}
+                                # FOR STORING IN CSV(NOT NEEDED)
+                                # if number_plate_text is not None:
+                                #     results[frame_count][bus_id]={'bus':{'bbox':[bus_x1,bus_y1,bus_x2,bus_y2]},
+                                #                                 'number plate':{'bbox':[x1, y1, x2, y2],
+                                #                                 'text':number_plate_text,
+                                #                                 'bbox_score':score,
+                                #                                 'number_plate_score':number_plate_text_score}}
 
                             
                                 cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)  
@@ -88,15 +87,15 @@ while _:
 
         print(max_score)
         print("number plate detected ")
-        # cv2.imshow('frame',img)
+        cv2.imshow('frame',img)
         # cv2.imwrite(f'frame{frame_count}.png',img)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     
 print(max_score)
 print(max_score_number_plate)
-write_csv(results,'test.csv')
-print('csv created')
+# write_csv(results,'test.csv')
+# print('csv created')
 url='http://localhost:5000/makeAvail'
 data={'licence_plate_number':max_score_number_plate}
 

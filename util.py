@@ -79,39 +79,39 @@ def read_number_plate(number_plate_crop_img):
     return None,None
     
     
-def write_csv(results, output_path):
-    """
-    Write the results to a CSV file.
+# def write_csv(results, output_path):
+#     """
+#     Write the results to a CSV file.
 
-    Args:
-        results (dict): Dictionary containing the results.
-        output_path (str): Path to the output CSV file.
-    """
-    with open(output_path, 'w') as f:
-        f.write('{},{},{},{},{},{},{}\n'.format('frame_nmr', 'bus_id', 'bus_bbox',
-                                                'number_plate_bbox', 'number_plate_bbox_score', 'number_plate_text',
-                                                'number_plate_score'))
+#     Args:
+#         results (dict): Dictionary containing the results.
+#         output_path (str): Path to the output CSV file.
+#     """
+#     with open(output_path, 'w') as f:
+#         f.write('{},{},{},{},{},{},{}\n'.format('frame_nmr', 'bus_id', 'bus_bbox',
+#                                                 'number_plate_bbox', 'number_plate_bbox_score', 'number_plate_text',
+#                                                 'number_plate_score'))
 
-        for frame_nmr in results.keys():
-            for car_id in results[frame_nmr].keys():
-                print(results[frame_nmr][car_id])
-                if 'bus' in results[frame_nmr][car_id].keys() and \
-                   'number plate' in results[frame_nmr][car_id].keys() and \
-                   'text' in results[frame_nmr][car_id]['number plate'].keys():
-                    f.write('{},{},{},{},{},{},{}\n'.format(frame_nmr,
-                                                            car_id,
-                                                            '[{} {} {} {}]'.format(
-                                                                results[frame_nmr][car_id]['bus']['bbox'][0],
-                                                                results[frame_nmr][car_id]['bus']['bbox'][1],
-                                                                results[frame_nmr][car_id]['bus']['bbox'][2],
-                                                                results[frame_nmr][car_id]['bus']['bbox'][3]),
-                                                            '[{} {} {} {}]'.format(
-                                                                results[frame_nmr][car_id]['number plate']['bbox'][0],
-                                                                results[frame_nmr][car_id]['number plate']['bbox'][1],
-                                                                results[frame_nmr][car_id]['number plate']['bbox'][2],
-                                                                results[frame_nmr][car_id]['number plate']['bbox'][3]),
-                                                            results[frame_nmr][car_id]['number plate']['bbox_score'],
-                                                            results[frame_nmr][car_id]['number plate']['text'],
-                                                            results[frame_nmr][car_id]['number plate']['number_plate_score'])
-                            )
-        f.close()
+#         for frame_nmr in results.keys():
+#             for car_id in results[frame_nmr].keys():
+#                 print(results[frame_nmr][car_id])
+#                 if 'bus' in results[frame_nmr][car_id].keys() and \
+#                    'number plate' in results[frame_nmr][car_id].keys() and \
+#                    'text' in results[frame_nmr][car_id]['number plate'].keys():
+#                     f.write('{},{},{},{},{},{},{}\n'.format(frame_nmr,
+#                                                             car_id,
+#                                                             '[{} {} {} {}]'.format(
+#                                                                 results[frame_nmr][car_id]['bus']['bbox'][0],
+#                                                                 results[frame_nmr][car_id]['bus']['bbox'][1],
+#                                                                 results[frame_nmr][car_id]['bus']['bbox'][2],
+#                                                                 results[frame_nmr][car_id]['bus']['bbox'][3]),
+#                                                             '[{} {} {} {}]'.format(
+#                                                                 results[frame_nmr][car_id]['number plate']['bbox'][0],
+#                                                                 results[frame_nmr][car_id]['number plate']['bbox'][1],
+#                                                                 results[frame_nmr][car_id]['number plate']['bbox'][2],
+#                                                                 results[frame_nmr][car_id]['number plate']['bbox'][3]),
+#                                                             results[frame_nmr][car_id]['number plate']['bbox_score'],
+#                                                             results[frame_nmr][car_id]['number plate']['text'],
+#                                                             results[frame_nmr][car_id]['number plate']['number_plate_score'])
+#                             )
+#         f.close()
